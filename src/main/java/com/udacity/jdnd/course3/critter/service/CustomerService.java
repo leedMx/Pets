@@ -18,10 +18,8 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final PetRepository petRepository;
 
-    public CustomerDTO save(CustomerDTO dto) {
-        Customer customer = customerRepository.save(getCustomer(dto));
-        dto.setId(customer.getId());
-        return dto;
+    public Customer save(Customer customer) {
+        return customerRepository.save(customer);
     }
 
     private Customer getCustomer(CustomerDTO dto) {
@@ -36,13 +34,7 @@ public class CustomerService {
         pet.ifPresent(value -> customer.getPets().add(value));
     }
 
-    public List<CustomerDTO> getAllCustomers() {
-        List<CustomerDTO> customers = new LinkedList<>();
-        System.out.println("Find All customers");
-        List<Customer> all = customerRepository.findAll();
-        System.out.println(all);
-        for (Customer customer : all)
-            customers.add(new CustomerDTO().fromCustomer(customer));
-        return customers;
+    public List<Customer> getAllCustomers() {
+        return new LinkedList<>(customerRepository.findAll());
     }
 }

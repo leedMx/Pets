@@ -1,11 +1,13 @@
 package com.udacity.jdnd.course3.critter.user;
 
+import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.service.CustomerService;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -24,12 +26,16 @@ public class UserController {
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
-        return customerService.save(customerDTO);
+        Customer customer = customerService.save(customerDTO.toCustomer());
+        return new CustomerDTO().fromCustomer(customer);
     }
 
     @GetMapping("/customer")
     public List<CustomerDTO> getAllCustomers(){
-        return customerService.getAllCustomers();
+        List<CustomerDTO> customers = new LinkedList<>();
+        for(Customer customer : customerService.getAllCustomers())
+            customers.add(new CustomerDTO().fromCustomer(customer));
+        return customers;
     }
 
     @GetMapping("/customer/pet/{petId}")
