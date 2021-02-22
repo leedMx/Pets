@@ -20,14 +20,7 @@ public class PetService {
     public Pet savePet(Pet pet) {
         System.out.println(pet);
         Pet savedPet = petRepository.save(pet);
-        //When coming from PetController customer is always null
-        Customer customer = savedPet.getCustomer();
-        System.out.println("CUSTOMER IS " + customer); //CUSTOMER IS null
-        if (customer != null){
-            customer.getPets().add(pet);
-            customerService.save(customer);
-        }
-        System.err.println("SAVED PET IS " + savedPet);//SAVED PET IS Pet(id=2, name=TestPet, type=CAT, customer=null, birthdate=null, notes=null)
+        System.out.println("SAVED PET "+savedPet);
         return savedPet;
     }
 

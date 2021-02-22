@@ -23,8 +23,10 @@ public class CustomerService {
     }
 
     public Customer getCustomer(Long customerId) {
-        return customerRepository.findById(customerId)
+        Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(EntityNotFoundException::new);
+        System.out.println(customer);
+        return customer;
     }
 
     public List<Customer> getAllCustomers() {

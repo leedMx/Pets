@@ -22,14 +22,13 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
-        //This is the original DTO
-        //PetDTO(id=0, type=CAT, name=TestPet, ownerId=1, birthDate=null, notes=null)
-        //which turns into this Pet to be saved
-        //Pet(id=0, name=TestPet, type=CAT, customer=null, birthdate=null, notes=null)
-        Pet pet = petService.savePet(petDTO.toPet());
-        pet.setCustomer(customerService.getCustomer(petDTO.getOwnerId()));
-        //Pet(id=2, name=TestPet, type=CAT, customer=Customer(id=1, name=TestEmployee, phoneNumber=123-456-789, notes=null, pets=[]), birthdate=null, notes=null)
-        return new PetDTO().fromPet(pet);
+        Pet pet = petDTO.toPet();
+        Customer customer = customerService.getCustomer(petDTO.getOwnerId());
+        pet.setCustomer(customer);
+        Pet savedPet = petService.savePet(pet);
+        customer.getPets().add(savedPet);
+        System.out.println(customer);
+        return new PetDTO().fromPet(savedPet);
     }
 
     @GetMapping("/{petId}")
