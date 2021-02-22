@@ -15,22 +15,16 @@ import java.util.List;
 public class PetService {
     private final PetRepository petRepository;
 
-    public PetDTO savePet(PetDTO petDTO) {
-        Pet pet = petRepository.save(petDTO.toPet());
-        petDTO.setId(pet.getId());
-        return petDTO;
+    public Pet savePet(Pet pet) {
+        return petRepository.save(pet);
     }
 
-    public PetDTO getPet(Long petId) {
-        Pet pet = petRepository.findById(petId)
+    public Pet getPet(Long petId) {
+        return petRepository.findById(petId)
                 .orElseThrow(EntityNotFoundException::new);
-        return new PetDTO().fromPet(pet);
     }
 
-    public List<PetDTO> getPetsByOwner(long ownerId) {
-        List<PetDTO> pets = new LinkedList<>();
-        for (Pet pet : petRepository.findAllByCustomerId(ownerId))
-            pets.add(new PetDTO().fromPet(pet));
-        return pets;
+    public List<Pet> getPetsByOwner(long ownerId) {
+        return new LinkedList<>(petRepository.findAllByCustomerId(ownerId));
     }
 }

@@ -1,9 +1,11 @@
 package com.udacity.jdnd.course3.critter.pet;
 
+import com.udacity.jdnd.course3.critter.entity.Pet;
 import com.udacity.jdnd.course3.critter.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -17,12 +19,13 @@ public class PetController {
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
-        return petService.savePet(petDTO);
+        Pet pet = petService.savePet(petDTO.toPet());
+        return new PetDTO().fromPet(pet);
     }
 
     @GetMapping("/{petId}")
     public PetDTO getPet(@PathVariable long petId) {
-        return petService.getPet(petId);
+        return new PetDTO().fromPet(petService.getPet(petId));
     }
 
     @GetMapping
@@ -32,6 +35,9 @@ public class PetController {
 
     @GetMapping("/owner/{ownerId}")
     public List<PetDTO> getPetsByOwner(@PathVariable long ownerId) {
-        return petService.getPetsByOwner(ownerId);
+        List<PetDTO> pets = new LinkedList<>();
+        for(Pet pet : petService.getPetsByOwner(ownerId))
+            pets.add(new PetDTO().fromPet(pet));
+        return pets;
     }
 }
