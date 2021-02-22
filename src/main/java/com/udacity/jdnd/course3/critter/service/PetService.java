@@ -15,9 +15,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PetService {
     private final PetRepository petRepository;
+    private final CustomerService customerService;
 
     public Pet savePet(Pet pet) {
-        return petRepository.save(pet);
+        System.out.println(pet);
+        Pet savedPet = petRepository.save(pet);
+        //When coming from PetController customer is always null
+        Customer customer = savedPet.getCustomer();
+        System.out.println("CUSTOMER IS " + customer); //CUSTOMER IS null
+        if (customer != null){
+            customer.getPets().add(pet);
+            customerService.save(customer);
+        }
+        System.err.println("SAVED PET IS " + savedPet);//SAVED PET IS Pet(id=2, name=TestPet, type=CAT, customer=null, birthdate=null, notes=null)
+        return savedPet;
     }
 
     public Pet getPet(Long petId) {
