@@ -15,15 +15,12 @@ import javax.persistence.EntityNotFoundException;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
-    public EmployeeDTO save(EmployeeDTO employeeDTO) {
-        Employee employee = employeeRepository.save(employeeDTO.toEmployee());
-        employeeDTO.setId(employee.getId());
-        return employeeDTO;
+    public Employee save(Employee employee) {
+        return employeeRepository.save(employee);
     }
 
-    public EmployeeDTO getEmployee(long employeeId) {
-        Employee employee = employeeRepository.findById(employeeId)
+    public Employee getEmployee(long employeeId) {
+        return employeeRepository.findById(employeeId)
                 .orElseThrow(EntityNotFoundException::new);
-        return new EmployeeDTO().fromEmployee(employee);
     }
 }

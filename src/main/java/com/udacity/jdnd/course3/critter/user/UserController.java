@@ -1,12 +1,15 @@
 package com.udacity.jdnd.course3.critter.user;
 
 import com.udacity.jdnd.course3.critter.entity.Customer;
+import com.udacity.jdnd.course3.critter.entity.Employee;
+import com.udacity.jdnd.course3.critter.entity.Weekday;
 import com.udacity.jdnd.course3.critter.service.CustomerService;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.DayOfWeek;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -45,17 +48,23 @@ public class UserController {
 
     @PostMapping("/employee")
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        return employeeService.save(employeeDTO);
+        Employee employee = employeeService.save(employeeDTO.toEmployee());
+        return new EmployeeDTO().fromEmployee(employee);
     }
 
     @PostMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
-        return employeeService.getEmployee(employeeId);
+        Employee employee = employeeService.getEmployee(employeeId);
+        return new EmployeeDTO().fromEmployee(employee);
     }
 
     @PutMapping("/employee/{employeeId}")
     public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
-        throw new UnsupportedOperationException();
+        Employee employee = employeeService.getEmployee(employeeId);
+        Set<Weekday> days = new HashSet<>();
+        for (DayOfWeek day : daysAvailable)
+            days.add(new Weekday(String.valueOf(day)));
+        employee.setDaysAvailable(days);
     }
 
     @GetMapping("/employee/availability")
