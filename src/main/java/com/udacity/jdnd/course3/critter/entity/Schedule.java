@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,9 +20,9 @@ public class Schedule {
     private Long id;
     private LocalDate date;
     @OneToMany
-    private Set<Skill> activities;
+    private Set<Skill> activities = new HashSet<>();
     @OneToMany
-    private List<Employee> employees;
+    private List<Employee> employees = new LinkedList<>();
     @OneToMany
-    private List<Pet> pets;
+    private List<Pet> pets = new LinkedList<>();
 }

@@ -8,6 +8,8 @@ import com.udacity.jdnd.course3.critter.user.EmployeeSkill;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,10 +20,10 @@ import java.util.Set;
 @Data
 public class ScheduleDTO {
     private long id;
-    private List<Long> employeeIds;
-    private List<Long> petIds;
+    private List<Long> employeeIds = new LinkedList<>();
+    private List<Long> petIds = new LinkedList<>();
     private LocalDate date;
-    private Set<EmployeeSkill> activities;
+    private Set<EmployeeSkill> activities = new HashSet<>();
     Schedule toSchedule(){
         Schedule schedule = new Schedule();
         schedule.setId(getId());
@@ -36,7 +38,7 @@ public class ScheduleDTO {
         for (Pet p : schedule.getPets())
             getPetIds().add(p.getId());
         for (Skill s : schedule.getActivities())
-            getActivities().add(EmployeeSkill.valueOf(String.valueOf(s)));
+            getActivities().add(EmployeeSkill.valueOf(s.getSkill()));
         return this;
     }
 }
