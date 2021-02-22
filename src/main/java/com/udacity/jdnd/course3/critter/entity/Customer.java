@@ -15,6 +15,6 @@ public class Customer {
     private String name;
     private String phoneNumber;
     private String notes;
-    @OneToMany (mappedBy = "customerId", fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "customer", fetch = FetchType.LAZY)
     private List<Pet> pets = new LinkedList<>();
 }

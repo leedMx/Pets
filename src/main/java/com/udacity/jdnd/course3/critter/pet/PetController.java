@@ -1,6 +1,7 @@
 package com.udacity.jdnd.course3.critter.pet;
 
 import com.udacity.jdnd.course3.critter.entity.Pet;
+import com.udacity.jdnd.course3.critter.service.CustomerService;
 import com.udacity.jdnd.course3.critter.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PetController {
     private final PetService petService;
+    private final CustomerService customerService;
 
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
         Pet pet = petService.savePet(petDTO.toPet());
+        pet.setCustomer(customerService.getCustomer(petDTO.getOwnerId()));
         return new PetDTO().fromPet(pet);
     }
 

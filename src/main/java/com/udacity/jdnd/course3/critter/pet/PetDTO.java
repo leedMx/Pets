@@ -23,7 +23,6 @@ public class PetDTO {
         pet.setId(getId());
         pet.setType(String.valueOf(getType()));
         pet.setName(getName());
-        pet.setCustomerId(getOwnerId());
         pet.setBirthdate(getBirthDate());
         pet.setNotes(getNotes());
         return pet;
@@ -33,7 +32,7 @@ public class PetDTO {
         setId(pet.getId());
         setType(PetType.valueOf(pet.getType()));
         setName(pet.getName());
-        setOwnerId(pet.getCustomerId());
+        setOwnerId(pet.getCustomer().getId());
         setBirthDate(pet.getBirthdate());
         setNotes(pet.getNotes());
         return this;
