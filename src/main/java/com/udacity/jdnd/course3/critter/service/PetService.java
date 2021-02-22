@@ -1,5 +1,6 @@
 package com.udacity.jdnd.course3.critter.service;
 
+import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Pet;
 import com.udacity.jdnd.course3.critter.pet.PetDTO;
 import com.udacity.jdnd.course3.critter.repository.PetRepository;
@@ -30,5 +31,11 @@ public class PetService {
 
     public List<Pet> getPets() {
         return petRepository.findAll();
+    }
+
+    public Customer getOwnerByPet(long petId) {
+        Pet pet = petRepository.findById(petId)
+                .orElseThrow(EntityNotFoundException::new);
+        return pet.getCustomer();
     }
 }
