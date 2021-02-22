@@ -33,7 +33,10 @@ public class PetController {
 
     @GetMapping
     public List<PetDTO> getPets(){
-        throw new UnsupportedOperationException();
+        List<PetDTO> pets = new LinkedList<>();
+        for(Pet pet : petService.getPets())
+            pets.add(new PetDTO().fromPet(pet));
+        return pets;
     }
 
     @GetMapping("/owner/{ownerId}")
