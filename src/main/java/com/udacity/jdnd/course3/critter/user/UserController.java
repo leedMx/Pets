@@ -5,6 +5,7 @@ import com.udacity.jdnd.course3.critter.entity.Employee;
 import com.udacity.jdnd.course3.critter.entity.Weekday;
 import com.udacity.jdnd.course3.critter.service.CustomerService;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
+import com.udacity.jdnd.course3.critter.service.PetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,10 +27,13 @@ import java.util.Set;
 public class UserController {
     private final CustomerService customerService;
     private final EmployeeService employeeService;
+    private final PetService petService;
 
     @PostMapping("/customer")
     public CustomerDTO saveCustomer(@RequestBody CustomerDTO customerDTO){
         Customer customer = customerService.save(customerDTO.toCustomer());
+        for (Long petId : customerDTO.getPetIds())
+            customer.getPets().add(petService.getPet(petId));
         return new CustomerDTO().fromCustomer(customer);
     }
 
@@ -59,7 +63,9 @@ public class UserController {
     }
 
     @PutMapping("/employee/{employeeId}")
-    public void setAvailability(@RequestBody Set<DayOfWeek> daysAvailable, @PathVariable long employeeId) {
+    public void setAvailability
+            (@RequestBody Set<DayOfWeek> daysAvailable,
+             @PathVariable long employeeId) {
         Employee employee = employeeService.getEmployee(employeeId);
         Set<Weekday> days = new HashSet<>();
         for (DayOfWeek day : daysAvailable)
