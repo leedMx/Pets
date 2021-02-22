@@ -24,13 +24,15 @@ public class ScheduleDTO {
     private List<Long> petIds = new LinkedList<>();
     private LocalDate date;
     private Set<EmployeeSkill> activities = new HashSet<>();
-    Schedule toSchedule(){
+
+    Schedule toSchedule() {
         Schedule schedule = new Schedule();
         schedule.setId(getId());
         schedule.setDate(getDate());
         return schedule;
     }
-    ScheduleDTO fromSchedule(Schedule schedule){
+
+    ScheduleDTO fromSchedule(Schedule schedule) {
         setId(schedule.getId());
         setDate(schedule.getDate());
         for (Employee e : schedule.getEmployees())

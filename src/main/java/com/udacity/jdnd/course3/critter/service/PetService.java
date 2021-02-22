@@ -2,7 +2,6 @@ package com.udacity.jdnd.course3.critter.service;
 
 import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Pet;
-import com.udacity.jdnd.course3.critter.pet.PetDTO;
 import com.udacity.jdnd.course3.critter.repository.PetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class PetService {
     public Pet savePet(Pet pet) {
         System.out.println(pet);
         Pet savedPet = petRepository.save(pet);
-        System.out.println("SAVED PET "+savedPet);
+        System.out.println("SAVED PET " + savedPet);
         return savedPet;
     }
 

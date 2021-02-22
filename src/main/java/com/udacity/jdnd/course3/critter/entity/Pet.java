@@ -15,7 +15,7 @@ public class Pet {
     private String name;
     private String type;
     @ManyToOne
-    @JoinColumn (name = "customer_id")
+    @JoinColumn(name = "customer_id")
     @ToString.Exclude
     private Customer customer;
     private LocalDate birthdate;

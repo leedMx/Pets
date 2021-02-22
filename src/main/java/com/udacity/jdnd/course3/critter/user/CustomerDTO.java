@@ -24,7 +24,7 @@ public class CustomerDTO {
         setName(customer.getName());
         setPhoneNumber(customer.getPhoneNumber());
         setNotes(customer.getNotes());
-        for(Pet pet: customer.getPets())
+        for (Pet pet : customer.getPets())
             getPetIds().add(pet.getId());
         return this;
     }
