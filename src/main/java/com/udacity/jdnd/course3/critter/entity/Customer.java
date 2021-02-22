@@ -2,10 +2,7 @@ package com.udacity.jdnd.course3.critter.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +15,6 @@ public class Customer {
     private String name;
     private String phoneNumber;
     private String notes;
-    @OneToMany (mappedBy = "customer")
+    @OneToMany (mappedBy = "customerId")
     private List<Pet> pets = new LinkedList<>();
 }

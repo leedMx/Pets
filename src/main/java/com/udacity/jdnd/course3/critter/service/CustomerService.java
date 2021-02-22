@@ -38,7 +38,10 @@ public class CustomerService {
 
     public List<CustomerDTO> getAllCustomers() {
         List<CustomerDTO> customers = new LinkedList<>();
-        for (Customer customer : customerRepository.findAll())
+        System.out.println("Find All customers");
+        List<Customer> all = customerRepository.findAll();
+        System.out.println(all);
+        for (Customer customer : all)
             customers.add(new CustomerDTO().fromCustomer(customer));
         return customers;
     }

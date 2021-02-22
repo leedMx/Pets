@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -13,5 +15,8 @@ public class Pet {
     @GeneratedValue
     private Long id;
     private String name;
-    private Long customer;
+    private String type;
+    private Long customerId;
+    private LocalDate birthdate;
+    private String notes;
 }

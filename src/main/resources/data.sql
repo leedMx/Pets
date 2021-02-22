@@ -3,3 +3,11 @@ INSERT INTO Skill (Skill) VALUES ('WALKING');
 INSERT INTO Skill (Skill) VALUES ('FEEDING');
 INSERT INTO Skill (Skill) VALUES ('MEDICATING');
 INSERT INTO Skill (Skill) VALUES ('SHAVING');
+
+INSERT INTO Weekday (weekday) VALUES ('MONDAY');
+INSERT INTO Weekday (weekday) VALUES ('TUESDAY');
+INSERT INTO Weekday (weekday) VALUES ('WEDNESDAY');
+INSERT INTO Weekday (weekday) VALUES ('THURSDAY');
+INSERT INTO Weekday (weekday) VALUES ('FRIDAY');
+INSERT INTO Weekday (weekday) VALUES ('SATURDAY');
+INSERT INTO Weekday (weekday) VALUES ('SUNDAY');
