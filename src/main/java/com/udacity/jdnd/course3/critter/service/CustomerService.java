@@ -35,6 +35,9 @@ public class CustomerService {
     }
 
     public List<Customer> getAllCustomers() {
-        return new LinkedList<>(customerRepository.findAll());
+        System.out.println("=========== Finding customers ===========");
+        List<Customer> found = customerRepository.findAll();
+        System.out.println(found);
+        return new LinkedList<>(found);
     }
 }
