@@ -53,13 +53,14 @@ public class UserController {
 
     @PostMapping("/employee")
     public EmployeeDTO saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = employeeService.save(employeeDTO.toEmployee());
-        return new EmployeeDTO().fromEmployee(employee);
+        return new EmployeeDTO().fromEmployee(
+                employeeService.save(employeeDTO.toEmployee()));
     }
 
     @PostMapping("/employee/{employeeId}")
     public EmployeeDTO getEmployee(@PathVariable long employeeId) {
         Employee employee = employeeService.getEmployee(employeeId);
+        System.out.println(employee);
         return new EmployeeDTO().fromEmployee(employee);
     }
 
@@ -68,10 +69,12 @@ public class UserController {
             (@RequestBody Set<DayOfWeek> daysAvailable,
              @PathVariable long employeeId) {
         Employee employee = employeeService.getEmployee(employeeId);
-        Set<Weekday> days = new HashSet<>();
+        System.out.println(employee);
         for (DayOfWeek day : daysAvailable)
-            days.add(new Weekday(String.valueOf(day)));
-        employee.setDaysAvailable(days);
+            employee.getDaysAvailable().add(new Weekday(String.valueOf(day)));
+        System.out.println(employee);
+        employeeService.save(employee);
+        System.out.println(employee);
     }
 
     @GetMapping("/employee/availability")

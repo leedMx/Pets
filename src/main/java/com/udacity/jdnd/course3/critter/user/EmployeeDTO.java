@@ -18,17 +18,16 @@ public class EmployeeDTO {
     private long id;
     private String name;
     private Set<EmployeeSkill> skills = new HashSet<>();
-    private Set<DayOfWeek> daysAvailable;
+    private Set<DayOfWeek> daysAvailable = new HashSet<>();
 
     public Employee toEmployee() {
         Employee employee = new Employee();
         employee.setId(getId());
         employee.setName(getName());
         for (EmployeeSkill skill : skills)
-            employee.getSkills().add(new Skill(String.valueOf(skill)));
-        if (daysAvailable != null)
-            for (DayOfWeek day : daysAvailable)
-                employee.getDaysAvailable().add(new Weekday(String.valueOf(day)));
+            employee.getSkills().add(new Skill(skill.name()));
+        for (DayOfWeek day : daysAvailable)
+            employee.getDaysAvailable().add(new Weekday(String.valueOf(day)));
         return employee;
     }
 
@@ -37,9 +36,8 @@ public class EmployeeDTO {
         setName(employee.getName());
         for (Skill skill : employee.getSkills())
             getSkills().add(EmployeeSkill.valueOf(skill.getSkill()));
-        if (daysAvailable != null)
-            for (Weekday day : employee.getDaysAvailable())
-                getDaysAvailable().add(DayOfWeek.valueOf(day.getWeekday()));
+        for (Weekday day : employee.getDaysAvailable())
+            getDaysAvailable().add(DayOfWeek.valueOf(day.getWeekday()));
         return this;
     }
 }
