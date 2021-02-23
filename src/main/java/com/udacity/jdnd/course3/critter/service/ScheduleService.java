@@ -27,6 +27,6 @@ public class ScheduleService {
     }
 
     public List<Schedule> getScheduleForEmployee(Employee employee) {
-        return repository.findAllByEmployeesContaining(employee);
+        return repository.findAllByEmployeesContains(employee);
     }
 }

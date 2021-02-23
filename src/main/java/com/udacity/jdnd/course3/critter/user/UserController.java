@@ -2,6 +2,7 @@ package com.udacity.jdnd.course3.critter.user;
 
 import com.udacity.jdnd.course3.critter.entity.Customer;
 import com.udacity.jdnd.course3.critter.entity.Employee;
+import com.udacity.jdnd.course3.critter.entity.Skill;
 import com.udacity.jdnd.course3.critter.entity.Weekday;
 import com.udacity.jdnd.course3.critter.service.CustomerService;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
@@ -78,8 +79,15 @@ public class UserController {
     }
 
     @GetMapping("/employee/availability")
-    public List<EmployeeDTO> findEmployeesForService(@RequestBody EmployeeRequestDTO employeeDTO) {
-        throw new UnsupportedOperationException();
+    public List<EmployeeDTO> findEmployeesForService(
+            @RequestBody EmployeeRequestDTO employeeDTO) {
+        List<EmployeeDTO> employees = new LinkedList<>();
+        List<Employee> found = employeeService.findForService(
+                employeeDTO.getWeekday(),
+                employeeDTO.getSkillSet());
+        for (Employee e : found)
+            employees.add(new EmployeeDTO().fromEmployee(e));
+        return employees;
     }
 
 }
