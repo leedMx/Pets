@@ -7,11 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PetService {
     private final PetRepository petRepository;
     private final CustomerService customerService;

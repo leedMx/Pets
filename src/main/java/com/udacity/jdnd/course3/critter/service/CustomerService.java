@@ -7,11 +7,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class CustomerService {
     private final CustomerRepository customerRepository;
 
