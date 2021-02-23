@@ -2,10 +2,7 @@ package com.udacity.jdnd.course3.critter.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -19,10 +16,10 @@ public class Schedule {
     @GeneratedValue
     private Long id;
     private LocalDate date;
-    @OneToMany
+    @ManyToMany
     private Set<Skill> activities = new HashSet<>();
-    @OneToMany
+    @ManyToMany
     private List<Employee> employees = new LinkedList<>();
-    @OneToMany
+    @ManyToMany
     private List<Pet> pets = new LinkedList<>();
 }

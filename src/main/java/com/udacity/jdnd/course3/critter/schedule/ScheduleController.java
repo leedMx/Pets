@@ -1,9 +1,7 @@
 package com.udacity.jdnd.course3.critter.schedule;
 
-import com.udacity.jdnd.course3.critter.entity.Employee;
-import com.udacity.jdnd.course3.critter.entity.Pet;
-import com.udacity.jdnd.course3.critter.entity.Schedule;
-import com.udacity.jdnd.course3.critter.entity.Skill;
+import com.udacity.jdnd.course3.critter.entity.*;
+import com.udacity.jdnd.course3.critter.service.CustomerService;
 import com.udacity.jdnd.course3.critter.service.EmployeeService;
 import com.udacity.jdnd.course3.critter.service.PetService;
 import com.udacity.jdnd.course3.critter.service.ScheduleService;
@@ -33,9 +31,9 @@ public class ScheduleController {
         for (Long id : scheduleDTO.getPetIds())
             schedule.getPets().add(petService.getPet(id));
         for (EmployeeSkill skill : scheduleDTO.getActivities())
-            schedule.getActivities().add(new Skill(String.valueOf(skill)));
-        scheduleService.createSchedule(schedule);
-        return new ScheduleDTO().fromSchedule(schedule);
+            schedule.getActivities().add(new Skill(skill.name()));
+        Schedule saved = scheduleService.createSchedule(schedule);
+        return new ScheduleDTO().fromSchedule(saved);
     }
 
     @GetMapping
@@ -61,11 +59,15 @@ public class ScheduleController {
         Employee employee = employeeService.getEmployee(employeeId);
         for (Schedule s : scheduleService.getScheduleForEmployee(employee))
             schedules.add(new ScheduleDTO().fromSchedule(s));
+        System.out.println(schedules);
         return schedules;
     }
 
     @GetMapping("/customer/{customerId}")
     public List<ScheduleDTO> getScheduleForCustomer(@PathVariable long customerId) {
-        throw new UnsupportedOperationException();
+        List<ScheduleDTO> schedules = new LinkedList<>();
+        for(Schedule s: scheduleService.getScheduleForCustomer(customerId))
+            schedules.add(new ScheduleDTO().fromSchedule(s));
+        return schedules;
     }
 }
