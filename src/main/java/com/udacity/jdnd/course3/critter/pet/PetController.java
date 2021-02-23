@@ -23,11 +23,8 @@ public class PetController {
     @PostMapping
     public PetDTO savePet(@RequestBody PetDTO petDTO) {
         Pet pet = petDTO.toPet();
-        Customer customer = customerService.getCustomer(petDTO.getOwnerId());
-        pet.setCustomer(customer);
+        pet.setCustomer(customerService.getCustomer(petDTO.getOwnerId()));
         Pet savedPet = petService.savePet(pet);
-        customer.getPets().add(savedPet);
-        System.out.println(customer);
         return new PetDTO().fromPet(savedPet);
     }
 

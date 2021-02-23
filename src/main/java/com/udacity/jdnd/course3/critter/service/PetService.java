@@ -17,10 +17,16 @@ public class PetService {
     private final CustomerService customerService;
 
     public Pet savePet(Pet pet) {
-        System.out.println(pet);
         Pet savedPet = petRepository.save(pet);
-        System.out.println("SAVED PET " + savedPet);
+        enlistWithCustomer(savedPet);
         return savedPet;
+    }
+
+    private void enlistWithCustomer(Pet savedPet) {
+        if (savedPet.getCustomer() != null){
+            Customer customer = savedPet.getCustomer();
+            customer.getPets().add(savedPet);
+        }
     }
 
     public Pet getPet(Long petId) {
