@@ -14,10 +14,16 @@ public class Pet {
     private Long id;
     private String name;
     private String type;
+    private LocalDate birthdate;
+    private String notes;
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @ToString.Exclude
     private Customer customer;
-    private LocalDate birthdate;
-    private String notes;
+
+    @ToString.Include
+    private String customerName() {
+        Customer customer = getCustomer();
+        return customer == null ? null : customer.getName();
+    }
 }
