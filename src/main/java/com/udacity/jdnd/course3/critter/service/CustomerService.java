@@ -1,6 +1,7 @@
 package com.udacity.jdnd.course3.critter.service;
 
 import com.udacity.jdnd.course3.critter.entity.Customer;
+import com.udacity.jdnd.course3.critter.entity.Pet;
 import com.udacity.jdnd.course3.critter.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,14 +16,14 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     public Customer save(Customer customer) {
+        for (Pet pet : customer.getPets())
+            pet.setCustomer(customer);
         return customerRepository.save(customer);
     }
 
     public Customer getCustomer(Long customerId) {
-        Customer customer = customerRepository.findById(customerId)
+        return customerRepository.findById(customerId)
                 .orElseThrow(EntityNotFoundException::new);
-        System.out.println(customer);
-        return customer;
     }
 
     public List<Customer> getAllCustomers() {
